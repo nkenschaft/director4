@@ -34,6 +34,12 @@ def prometheus_metrics_view(request: HttpRequest) -> HttpResponse:
             "director4_sites_failed_actions": Action.objects.filter(
                 result=False, user_recoverable=False,
             ).count(),
+            "director4_sites_successful_actions": Action.objects.filter(
+                result=True
+            ).count(),
+            "director4_sites_incomplete_actions": Action.objects.filter(
+                result=None
+            ).count(),
         }
 
         return render(
