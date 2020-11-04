@@ -31,6 +31,7 @@ def prometheus_metrics_view(request: HttpRequest) -> HttpResponse:
         request.user.is_authenticated and request.user.is_superuser
     ) or remote_addr in settings.ALLOWED_METRIC_SCRAPE_IPS:
         metrics = {
+            "director4_sites_total_actions": Actions.objects.count(),
             "director4_sites_failed_actions": Action.objects.filter(
                 result=False, user_recoverable=False,
             ).count(),
